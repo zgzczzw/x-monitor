@@ -1,0 +1,11 @@
+fastapi
+uvicorn[standard]
+sqlalchemy
+pydantic
+python-dotenv
+apscheduler
+praw
+newsapi-python
+feedparser
+httpx
+snownlp
