@@ -31,8 +31,8 @@ def fetch_new_tweets(api_key: str, username: str, since_id: str = "") -> list[di
         parsed = _parse(tw, username)
         if not parsed:
             continue
-        # 如果有 since_id，只保留更新的（ID 更大的）
-        if since_id and parsed["tweet_id"] <= since_id:
+        # 如果有 since_id，只保留更新的（ID 更大的）—— 用整数比较避免字符串排序错误
+        if since_id and int(parsed["tweet_id"]) <= int(since_id):
             break
         results.append(parsed)
 

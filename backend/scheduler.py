@@ -140,9 +140,9 @@ async def run_collection():
                     if not is_first_run:
                         new_tweets.append(tw)
 
-                # 更新该用户最新 tweet id
+                # 更新该用户最新 tweet id（取最大值，防止 API 返回乱序）
                 if tweets:
-                    latest_id = tweets[0]["tweet_id"]  # last_tweets 倒序，第一条最新
+                    latest_id = max(tweets, key=lambda t: int(t["tweet_id"]))["tweet_id"]
                     row = db.query(Setting).filter(Setting.key == since_key).first()
                     if row:
                         row.value = latest_id
