@@ -47,6 +47,17 @@ def _parse(tw: dict, fallback_author: str) -> dict | None:
         text = tw.get("text", "")
         if not text:
             return None
+
+        # 过滤转帖：retweeted_tweet=True 或文本以 "RT @" 开头
+        if tw.get("retweeted_tweet") or text.startswith("RT @"):
+            logger.debug(f"跳过转帖 {tweet_id}")
+            return None
+
+        # 过滤回复：inReplyToId 非空，或 isReply=True
+        if tw.get("isReply") or tw.get("inReplyToId"):
+            logger.debug(f"跳过回复 {tweet_id}")
+            return None
+
         author_obj = tw.get("author") or {}
         author = (
             author_obj.get("userName")
