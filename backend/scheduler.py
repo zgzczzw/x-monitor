@@ -162,6 +162,8 @@ async def run_collection():
                         body = f"{tw['content'][:150]}\n\n🀄 {zh[:150]}"
                     else:
                         body = tw["content"][:200]
+                    if tw.get("url"):
+                        body += f"\n\n🔗 {tw['url']}"
                     for dev in devices:
                         bark_send(
                             server_url=dev.server_url,
