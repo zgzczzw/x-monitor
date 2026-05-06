@@ -168,7 +168,6 @@ async def run_collection():
                             device_key=dev.device_key,
                             title=f"@{tw['author']} 发了新推文",
                             body=body,
-                            url=tw.get("url", ""),
                             sound=dev.sound or "",
                         )
 
